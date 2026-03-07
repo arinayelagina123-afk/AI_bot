@@ -11,8 +11,7 @@ logger = logging.getLogger(__name__)
 
 async def ask_gpt(user_message: str,
         system_prompt: str = 'Ты полезный ассистент.Отвечай кратко и по делу и вежливо',
-        history: list = None
-) -> str:
+        history: list = None) -> str:
     try:
         messages = [{'role': 'system', 'content': system_prompt}]
 

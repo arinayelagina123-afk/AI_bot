@@ -2,6 +2,7 @@ from aiogram.types import Message, CallbackQuery
 from aiogram import Router, F
 from aiogram.filters import Command
 from utils.random_utils import send_random
+from keyboards.inlinekeyboard import main_menu
 
 router = Router()
 
@@ -21,6 +22,5 @@ async def start_random(callback: CallbackQuery):
 async def go_start(callback: CallbackQuery):
     await callback.answer()
 
-    await callback.message.answer(
-        "Ты вернулся в главное меню. Напиши /random чтобы получить факт."
-    )
+    await callback.message.answer('Ты вернулся в главное меню. Напиши /random чтобы получить факт.',reply_markup=main_menu())
+
