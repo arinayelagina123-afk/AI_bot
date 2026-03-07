@@ -86,5 +86,7 @@ async def dialog_with_lun(message: Message, state: FSMContext):
 async def go_start(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
     await state.clear()
+    photo = FSInputFile('images/welcome.png')
+    await callback.message.answer_photo(photo)
     await callback.message.answer('Ты вернулся в главное меню. Напиши /talk чтобы снова поговорить.',
                                   reply_markup=main_menu())

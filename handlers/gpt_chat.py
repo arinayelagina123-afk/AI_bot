@@ -6,6 +6,7 @@ from aiogram.filters import Command
 from aiogram import F, Router
 from services.openai_service import ask_gpt
 from utils.gpt_utils import send_gpt
+from keyboards.inlinekeyboard import main_menu
 
 router = Router()
 
@@ -29,3 +30,5 @@ async def gpt_answer(message: Message, state: FSMContext):
     result = await ask_gpt(data)
     await message.answer(result)
     await state.clear()
+    keyboard = main_menu()
+    await message.answer('Ты вернулся в главное меню. Напиши /gpt чтобы задать вопрос.', reply_markup=keyboard)

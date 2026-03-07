@@ -3,7 +3,7 @@ from aiogram import Router, F
 from aiogram.filters import Command
 from utils.random_utils import send_random
 from keyboards.inlinekeyboard import main_menu
-
+from aiogram.types import FSInputFile
 router = Router()
 
 
@@ -21,6 +21,7 @@ async def start_random(callback: CallbackQuery):
 @router.callback_query(F.data == "menu:start")
 async def go_start(callback: CallbackQuery):
     await callback.answer()
-
+    photo = FSInputFile('images/welcome.png')
+    await callback.message.answer_photo(photo)
     await callback.message.answer('Ты вернулся в главное меню. Напиши /random чтобы получить факт.',reply_markup=main_menu())
 
