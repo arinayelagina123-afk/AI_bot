@@ -8,6 +8,7 @@ from services.openai_service import ask_gpt
 from utils.gpt_utils import send_gpt
 from keyboards.inlinekeyboard import main_menu
 
+
 router = Router()
 
 
@@ -27,7 +28,8 @@ async def gpt_text_but(callback: CallbackQuery, state: FSMContext):
 @router.message(myStates.waiting_gpt)
 async def gpt_answer(message: Message, state: FSMContext):
     data = message.text
-    result = await ask_gpt(data)
+    user_id = message.from_user.id
+    result = await ask_gpt(user_id,data)
     await message.answer(result)
     await state.clear()
     keyboard = main_menu()

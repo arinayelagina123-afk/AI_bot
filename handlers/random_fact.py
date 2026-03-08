@@ -9,13 +9,15 @@ router = Router()
 
 @router.message(Command("random"))
 async def random_fact(message: Message):
-    await send_random(message)
+    user_id = message.from_user.id
+    await send_random(message,user_id)
 
 
 @router.callback_query(F.data == 'menu:random')
 async def start_random(callback: CallbackQuery):
     await callback.answer()
-    await send_random(callback.message)
+    user_id = callback.message.from_user.id
+    await send_random(callback.message,user_id)
 
 
 @router.callback_query(F.data == "menu:start")

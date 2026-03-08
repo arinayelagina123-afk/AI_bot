@@ -43,3 +43,23 @@ def cancel_dialog():
         ]
     )
     return keyboard
+
+def quiz():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text='Космос', callback_data='cosmos')],
+            [InlineKeyboardButton(text='Страны', callback_data='country')],
+            [InlineKeyboardButton(text='Животные', callback_data='animal')],
+            [InlineKeyboardButton(text='Обо всем', callback_data='all')],
+        ]
+    )
+    return keyboard
+def in_quiz():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text='Результат', callback_data='quiz:result')],
+            [InlineKeyboardButton(text='Еще вопрос', callback_data='quiz:ece')],
+            [InlineKeyboardButton(text='Сменить тему', callback_data='quiz:other')],
+        ]
+    )
+    return keyboard
