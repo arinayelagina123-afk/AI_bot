@@ -1,6 +1,6 @@
 from aiogram.fsm.context import FSMContext
 from States.states import myStates
-from aiogram.types import  CallbackQuery, Message
+from aiogram.types import CallbackQuery, Message
 from aiogram.filters import Command
 from aiogram import F, Router
 from keyboards.inlinekeyboard import in_quiz, main_menu, quiz
@@ -29,13 +29,18 @@ async def cosmos_quiz(callback: CallbackQuery, state: FSMContext):
         tema='космос',
         correct_counter=0,
         main_counter=0,
+        asked_questions=[]
     )
     data = await state.get_data()
     tema = data["tema"]
-    quiz = await create_quiz(tema,user_id)
+    quiz = await create_quiz(tema, user_id)
     question = quiz["questions"]["question"]
     correct_answer = quiz['questions']['answer']
-    await state.update_data(question=question,correct_answer=correct_answer)
+    asked_questions = data["asked_questions"]
+    asked_questions.append(question)
+    await state.update_data(question=question
+                            , correct_answer=correct_answer
+                            , asked_questions=asked_questions)
 
     await callback.message.answer(question)
     await state.set_state(myStates.quiz)
@@ -50,13 +55,18 @@ async def country_quiz(callback: CallbackQuery, state: FSMContext):
         tema='Страны',
         correct_counter=0,
         main_counter=0,
+        asked_questions=[]
     )
     data = await state.get_data()
     tema = data["tema"]
-    quiz = await create_quiz(tema,user_id)
+    quiz = await create_quiz(tema, user_id)
     question = quiz["questions"]["question"]
     correct_answer = quiz['questions']['answer']
-    await state.update_data(question=question,correct_answer=correct_answer)
+    asked_questions = data["asked_questions"]
+    asked_questions.append(question)
+    await state.update_data(question=question
+                            , correct_answer=correct_answer
+                            , asked_questions=asked_questions)
 
     await callback.message.answer(question)
     await state.set_state(myStates.quiz)
@@ -71,13 +81,18 @@ async def animal_quiz(callback: CallbackQuery, state: FSMContext):
         tema='Животные',
         correct_counter=0,
         main_counter=0,
+        asked_questions=[]
     )
     data = await state.get_data()
     tema = data["tema"]
-    quiz = await create_quiz(tema,user_id)
+    quiz = await create_quiz(tema, user_id)
     question = quiz["questions"]["question"]
     correct_answer = quiz['questions']['answer']
-    await state.update_data(question=question, correct_answer=correct_answer)
+    asked_questions = data["asked_questions"]
+    asked_questions.append(question)
+    await state.update_data(question=question
+                            , correct_answer=correct_answer
+                            , asked_questions=asked_questions)
 
     await callback.message.answer(question)
     await state.set_state(myStates.quiz)
@@ -92,13 +107,18 @@ async def all_quiz(callback: CallbackQuery, state: FSMContext):
         tema='Обо всем',
         correct_counter=0,
         main_counter=0,
+        asked_questions=[]
     )
     data = await state.get_data()
     tema = data["tema"]
-    quiz = await create_quiz(tema,user_id)
+    quiz = await create_quiz(tema, user_id)
     question = quiz["questions"]["question"]
     correct_answer = quiz['questions']['answer']
-    await state.update_data(question=question, correct_answer=correct_answer)
+    asked_questions = data["asked_questions"]
+    asked_questions.append(question)
+    await state.update_data(question=question
+                            , correct_answer=correct_answer
+                            , asked_questions=asked_questions)
 
     await callback.message.answer(question)
     await state.set_state(myStates.quiz)
@@ -127,18 +147,24 @@ async def quiz_other(callback: CallbackQuery, state: FSMContext):
         reply_markup=quiz())
     await state.clear()
 
+
 @router.callback_query(F.data == 'quiz:ece')
 async def quiz_ece(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
     data = await state.get_data()
     tema = data.get('tema')
+    asked_questions = data.get("asked_questions", [])
     user_id = callback.message.from_user.id
     if not tema:
         await callback.message.answer("Сначала выбери тему!")
-    quiz = await create_quiz(tema,user_id)
+    quiz = await create_quiz(tema, user_id, asked_questions)
     question = quiz["questions"]["question"]
     correct_answer = quiz['questions']['answer']
-    await state.update_data(question=question,correct_answer=correct_answer ,correctness_of_the_answer=None)
+    asked_questions.append(question)
+    await state.update_data(question=question,
+                            correct_answer=correct_answer,
+                            correctness_of_the_answer=None,
+                            asked_questions=asked_questions)
     await callback.message.answer(question)
     await state.set_state(myStates.quiz)
 
@@ -150,7 +176,8 @@ async def quiz_state(message: Message, state: FSMContext):
     correct_counter = data.get("correct_counter", 0)
     main_counter = data.get("main_counter", 0)
     correct_answer = data["correct_answer"]
-    checked_answer = await check_answer(question, message.text,user_id=message.from_user.id,correct_answer=correct_answer)
+    checked_answer = await check_answer(question, message.text, user_id=message.from_user.id,
+                                        correct_answer=correct_answer)
     if checked_answer:
         correct_counter += 1
         await message.answer('Верно!')
@@ -163,4 +190,3 @@ async def quiz_state(message: Message, state: FSMContext):
     )
     await message.answer('Выбери что будешь делать:', reply_markup=in_quiz())
     await state.set_state(None)
-

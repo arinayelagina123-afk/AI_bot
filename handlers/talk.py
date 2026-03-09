@@ -6,7 +6,9 @@ from aiogram.filters import Command
 from aiogram import F, Router
 from services.openai_service import ask_gpt
 from keyboards.inlinekeyboard import cancel_dialog, main_menu
-from utils.talk_utils import send_text,read_file
+from utils.talk_utils import send_text
+from utils.read_file_utils import read_file
+
 router = Router()
 
 
@@ -28,15 +30,14 @@ async def flat_state(callback: CallbackQuery, state: FSMContext):
     await state.set_state(myStates.dialog_with_flatt)
 
 
-
 @router.message(myStates.dialog_with_flatt)
 async def dialog_with_flatt(message: Message, state: FSMContext):
     user_id = message.from_user.id
     user_data = await state.get_data()
     dialog_history = user_data.get('dialog_history', [])
-    system_promt =read_file('prompts/flatt.txt')
+    system_prompt = read_file('prompts/flatt.txt')
     data = message.text
-    result = await ask_gpt(user_id,data,system_promt,dialog_history)
+    result = await ask_gpt(user_id, data, system_prompt, dialog_history)
     await state.update_data(dialog_history=dialog_history)
     await message.answer(result, reply_markup=cancel_dialog())
 
@@ -48,7 +49,6 @@ async def isk_state(callback: CallbackQuery, state: FSMContext):
     await state.set_state(myStates.dialog_with_isk)
 
 
-
 @router.message(myStates.dialog_with_isk)
 async def dialog_with_isk(message: Message, state: FSMContext):
     user_id = message.from_user.id
@@ -56,7 +56,7 @@ async def dialog_with_isk(message: Message, state: FSMContext):
     dialog_history = user_data.get('dialog_history', [])
     system_promt = read_file('prompts/isk.txt')
     data = message.text
-    result = await ask_gpt(user_id,data,system_promt,dialog_history)
+    result = await ask_gpt(user_id, data, system_promt, dialog_history)
     await state.update_data(dialog_history=dialog_history)
     await message.answer(result, reply_markup=cancel_dialog())
 
@@ -66,7 +66,6 @@ async def son(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
     await callback.message.answer('Вы выбрали Соника')
     await state.set_state(myStates.dialog_with_sonic)
-
 
 
 @router.message(myStates.dialog_with_sonic)
@@ -88,15 +87,14 @@ async def lun_state(callback: CallbackQuery, state: FSMContext):
     await state.set_state(myStates.dialog_with_luntic)
 
 
-
 @router.message(myStates.dialog_with_luntic)
 async def dialog_with_lun(message: Message, state: FSMContext):
     user_id = message.from_user.id
     user_data = await state.get_data()
     dialog_history = user_data.get('dialog_history', [])
-    system_promt = read_file('prompts/lun.txt')
+    system_prompt = read_file('prompts/lun.txt')
     data = message.text
-    result = await ask_gpt(user_id, data, system_promt, dialog_history)
+    result = await ask_gpt(user_id, data, system_prompt, dialog_history)
     await state.update_data(dialog_history=dialog_history)
     await message.answer(result, reply_markup=cancel_dialog())
 

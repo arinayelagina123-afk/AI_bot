@@ -10,7 +10,7 @@ async def send_mes(message: Message):
     await message.answer('Выберите на какой нужно перевести.', reply_markup=translate_keyboard())
 
 
-async def translate(user_id, lang,message):
+async def translate(user_id, lang, message):
     prompt = f"""
 Переведи текст с русского языка на {lang}.
 Верни строго JSON без чего либо лишнего только json:
@@ -18,7 +18,7 @@ async def translate(user_id, lang,message):
     "translate":{{"translate":"перевод"}}
 }}
     """
-    trans = await ask_gpt(user_id, message,prompt)
+    trans = await ask_gpt(user_id, message, prompt)
     trans = trans.replace("```json", "").replace("```", "").strip()
     trans = json.loads(trans)
     trans = trans["translate"]["translate"]

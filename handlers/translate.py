@@ -51,7 +51,7 @@ async def translate_answer(message: Message, state: FSMContext):
     data = await state.get_data()
     lang = data['lang']
     result = await translate(user_id, lang, data_user)
-    await message.answer(result , reply_markup=in__translate_keyboard())
+    await message.answer(result, reply_markup=in__translate_keyboard())
     await state.clear()
 
 

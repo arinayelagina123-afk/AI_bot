@@ -1,6 +1,8 @@
+from aiogram.filters import callback_data
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
+# /start
 def main_menu():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -9,12 +11,13 @@ def main_menu():
             [InlineKeyboardButton(text='🗣️ Диалог с линостью', callback_data='menu:talk')],
             [InlineKeyboardButton(text='🎯 Квиз', callback_data='menu:quiz')],
             [InlineKeyboardButton(text='📄Переводчик', callback_data='menu:translate')],
-            [InlineKeyboardButton(text='idk', callback_data='menu:idk')]
+            [InlineKeyboardButton(text='📈Рекомендации', callback_data='menu:rec')]
         ]
     )
     return keyboard
 
 
+# /random
 def random_start():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -25,6 +28,7 @@ def random_start():
     return keyboard
 
 
+# /talk
 def dialog():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -36,6 +40,7 @@ def dialog():
     )
     return keyboard
 
+
 def cancel_dialog():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -44,6 +49,8 @@ def cancel_dialog():
     )
     return keyboard
 
+
+# /quiz
 def quiz():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -54,6 +61,8 @@ def quiz():
         ]
     )
     return keyboard
+
+
 def in_quiz():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -63,6 +72,9 @@ def in_quiz():
         ]
     )
     return keyboard
+
+
+# /translate
 def translate_keyboard():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -72,11 +84,35 @@ def translate_keyboard():
         ]
     )
     return keyboard
+
+
 def in__translate_keyboard():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text='→Выбрать другой язык', callback_data='translate:other')],
             [InlineKeyboardButton(text='❌Закончить', callback_data='translate:cancel')]
+        ]
+    )
+    return keyboard
+
+
+# /recommendation
+def choice_category():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text='📖Книги', callback_data='category:books')],
+            [InlineKeyboardButton(text='🎥Фильмы', callback_data='category:movies')],
+            [InlineKeyboardButton(text='💻Игры', callback_data='category:games')]
+        ]
+    )
+    return keyboard
+
+
+def dont_like_keyboard():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text='→Не нравится', callback_data='dont_like')],
+            [InlineKeyboardButton(text='❌Закончить', callback_data='cancel')]
         ]
     )
     return keyboard

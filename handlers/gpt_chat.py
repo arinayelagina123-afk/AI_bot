@@ -1,13 +1,11 @@
 from aiogram.fsm.context import FSMContext
-from aiogram.types import FSInputFile
 from States.states import myStates
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, CallbackQuery, Message
+from aiogram.types import CallbackQuery, Message
 from aiogram.filters import Command
 from aiogram import F, Router
 from services.openai_service import ask_gpt
 from utils.gpt_utils import send_gpt
 from keyboards.inlinekeyboard import main_menu
-
 
 router = Router()
 
@@ -29,7 +27,7 @@ async def gpt_text_but(callback: CallbackQuery, state: FSMContext):
 async def gpt_answer(message: Message, state: FSMContext):
     data = message.text
     user_id = message.from_user.id
-    result = await ask_gpt(user_id,data)
+    result = await ask_gpt(user_id, data)
     await message.answer(result)
     await state.clear()
     keyboard = main_menu()
