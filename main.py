@@ -3,7 +3,7 @@ import asyncio
 import logging
 from aiogram.types import Message
 from config import TG_BOT_TOKEN
-from handlers import router_
+from handlers import router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -11,7 +11,7 @@ logging.basicConfig(
 
 bot = Bot(token=TG_BOT_TOKEN)
 dp = Dispatcher()
-dp.include_router(router_)
+dp.include_router(router)
 
 
 

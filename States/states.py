@@ -8,3 +8,4 @@ class myStates(StatesGroup):
     dialog_with_sonic=State()
     dialog_with_luntic=State()
     quiz=State()
+    trans=State()
