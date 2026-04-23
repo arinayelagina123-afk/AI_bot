@@ -1,6 +1,6 @@
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
-from States.states import myStates
+from states.states import myStates
 from aiogram.types import CallbackQuery, Message
 from aiogram.filters import Command
 from aiogram import F, Router

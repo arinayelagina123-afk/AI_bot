@@ -1,9 +1,9 @@
 from aiogram.fsm.context import FSMContext
-from States.states import myStates
+from states.states import myStates
 from aiogram.types import CallbackQuery, Message
 from aiogram.filters import Command
 from aiogram import F, Router
-from utils.Recommendation_utils import take_recommendation, send_text
+from utils.recommendation_utils import take_recommendation, send_text
 from keyboards.inlinekeyboard import dont_like_keyboard, main_menu
 
 router = Router()

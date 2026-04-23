@@ -5,7 +5,7 @@ from handlers.gpt_chat import router as gpt_chats_router
 from handlers.talk import router as talk_router
 from handlers.quiz import router as quiz_router
 from handlers.translate import router as translate_router
-from handlers.Recommendation import router as recommendation_router
+from handlers.recommendation import router as recommendation_router
 
 router = Router()
 

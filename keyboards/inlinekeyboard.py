@@ -1,4 +1,3 @@
-from aiogram.filters import callback_data
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
@@ -8,7 +7,7 @@ def main_menu():
         inline_keyboard=[
             [InlineKeyboardButton(text='🎲 Случайный факт', callback_data='menu:random')],
             [InlineKeyboardButton(text='🤖 Chat GPT', callback_data='menu:gpt')],
-            [InlineKeyboardButton(text='🗣️ Диалог с линостью', callback_data='menu:talk')],
+            [InlineKeyboardButton(text='🗣️ Диалог с личностью', callback_data='menu:talk')],
             [InlineKeyboardButton(text='🎯 Квиз', callback_data='menu:quiz')],
             [InlineKeyboardButton(text='📄Переводчик', callback_data='menu:translate')],
             [InlineKeyboardButton(text='📈Рекомендации', callback_data='menu:rec')]
